@@ -1,0 +1,9 @@
+package com.rocklass.realmeet.features.postcapture.ui
+
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+
+@Composable
+fun ShareScreen() {
+    Text(text = "Share")
+}

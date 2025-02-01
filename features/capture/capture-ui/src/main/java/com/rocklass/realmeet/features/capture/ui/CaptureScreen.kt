@@ -14,6 +14,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavHostController
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionState
 import com.google.accompanist.permissions.isGranted
@@ -26,12 +27,16 @@ import com.rocklass.berealtest.core.designsystem.layout.fullscreenloader.FullScr
 import com.rocklass.berealtest.core.designsystem.layout.fullscreenloader.FullScreenLoaderUIModel
 import com.rocklass.berealtest.core.designsystem.layout.screenwithcta.ScreenWithCTAUIModel
 import com.rocklass.berealtest.core.designsystem.layout.screenwithcta.ScreenWithCallToActionLayout
+import com.rocklass.realmeet.core.navigation.Routes.SHARE
 import com.rocklass.realmeet.features.capture.ui.CaptureViewModel.CaptureState.*
 import com.rocklass.realmeet.features.capture.ui.model.CaptureUIModel
 
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
-fun CaptureScreen(viewModel: CaptureViewModel = hiltViewModel()) {
+fun CaptureScreen(
+    viewModel: CaptureViewModel = hiltViewModel(),
+    navController: NavHostController,
+) {
     val cameraPermissionState = rememberPermissionState(android.Manifest.permission.CAMERA)
     CameraPermission(
         cameraPermissionState = cameraPermissionState,
@@ -56,7 +61,9 @@ fun CaptureScreen(viewModel: CaptureViewModel = hiltViewModel()) {
             cameraPermissionState.launchPermissionRequest()
         }
         is Loading -> LoadingScreen()
-        is Success -> onCaptureSuccess()
+        is Success -> onCaptureSuccess(
+            navController = navController,
+        )
         is Error -> ErrorScreen(
             errorMessage = state.message,
             onRetry = onCapture,
@@ -134,9 +141,8 @@ private fun LoadingScreen() {
     )
 }
 
-fun onCaptureSuccess() {
-    Log.d("CaptureScreen", "Capture successful")
-    // TODO launch share screen
+fun onCaptureSuccess(navController: NavHostController) {
+    navController.navigate(SHARE)
 }
 
 @Composable

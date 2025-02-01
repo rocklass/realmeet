@@ -41,6 +41,7 @@ android {
 dependencies {
     implementation(project(":core:camera"))
     implementation(project(":core:design-system"))
+    implementation(project(":core:navigation"))
     implementation(project(":features:capture:capture-domain"))
     implementation(libs.accompanist.permissions)
     implementation(libs.androidx.camera.compose)

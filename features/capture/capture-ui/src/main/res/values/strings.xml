@@ -2,4 +2,5 @@
     <string name="camera_permission_required_title">Let\'s capture a RealMeet!</string>
     <string name="camera_permission_required_description">We need your camera to snap those epic RealMeet moments. Grant permission, and let\'s make some memories!</string>
     <string name="camera_permission_required_button">Grant permission and go!</string>
+    <string name="camera_capture_button">Shot!</string>
 </resources>

@@ -1,9 +1,12 @@
 package com.rocklass.realmeet.features.capture.ui
 
 import androidx.camera.compose.CameraXViewfinder
+import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -13,6 +16,7 @@ import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionState
 import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
+import com.rocklass.berealtest.core.designsystem.component.Cta
 import com.rocklass.berealtest.core.designsystem.layout.ScreenWithCallToActionLayout
 
 @Composable
@@ -54,8 +58,17 @@ private fun CameraPreviewContent(viewModel: CaptureViewModel) {
     }
 
     surfaceRequest?.let { request ->
-        CameraXViewfinder(
-            surfaceRequest = request,
-        )
+        Box {
+            CameraXViewfinder(
+                surfaceRequest = request,
+            )
+            Cta(
+                text = stringResource(R.string.camera_capture_button),
+                modifier = Modifier
+                    .align(Alignment.BottomCenter),
+            ) {
+                viewModel.takePicture(context.applicationContext)
+            }
+        }
     }
 }

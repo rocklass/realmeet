@@ -35,9 +35,11 @@ android {
 }
 
 dependencies {
+    implementation(project(":core:network"))
     implementation(project(":features:capture:capture-domain"))
     implementation(libs.hilt)
     ksp(libs.hilt.compiler)
+    implementation(libs.retrofit)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

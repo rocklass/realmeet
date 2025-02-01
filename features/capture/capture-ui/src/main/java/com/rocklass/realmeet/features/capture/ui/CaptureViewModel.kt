@@ -13,15 +13,22 @@ import androidx.camera.lifecycle.awaitInstance
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.rocklass.realmeet.features.capture.domain.usecase.SendCaptureUseCase
+import com.rocklass.realmeet.features.capture.ui.mapper.ByteArrayToCaptureMapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.awaitCancellation
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class CaptureViewModel @Inject constructor() : ViewModel() {
+class CaptureViewModel @Inject constructor(
+    private val sendCaptureUseCase: SendCaptureUseCase,
+    private val byteArrayToCaptureMapper: ByteArrayToCaptureMapper,
+) : ViewModel() {
     private val _surfaceRequest = MutableStateFlow<SurfaceRequest?>(null)
     val surfaceRequest: StateFlow<SurfaceRequest?> = _surfaceRequest
 
@@ -52,8 +59,7 @@ class CaptureViewModel @Inject constructor() : ViewModel() {
                 val byteArray = ByteArray(buffer.remaining())
                 buffer.get(byteArray)
                 image.close()
-                // TODO send picture to the server
-                Log.d(CaptureViewModel::class.simpleName, "Photo capture succeeded")
+                sendCapture(byteArray)
             }
 
             override fun onError(exception: ImageCaptureException) {
@@ -64,5 +70,12 @@ class CaptureViewModel @Inject constructor() : ViewModel() {
             ContextCompat.getMainExecutor(appContext),
             callback,
         )
+    }
+
+    private fun sendCapture(byteArray: ByteArray) {
+        val capture = byteArrayToCaptureMapper(byteArray)
+        viewModelScope.launch {
+            sendCaptureUseCase(capture)
+        }
     }
 }

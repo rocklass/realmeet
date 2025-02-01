@@ -21,4 +21,6 @@ dependencyResolutionManagement {
 
 rootProject.name = "RealMeet"
 include(":app")
- 
+include(":features:capture:capture-data")
+include(":features:capture:capture-domain")
+include(":features:capture:capture-ui")

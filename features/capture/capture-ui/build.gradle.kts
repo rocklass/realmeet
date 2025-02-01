@@ -40,6 +40,11 @@ android {
 
 dependencies {
     implementation(project(":features:capture:capture-domain"))
+    implementation(libs.accompanist.permissions)
+    implementation(libs.androidx.camera)
+    implementation(libs.androidx.camera.camera2)
+    implementation(libs.androidx.camera.compose)
+    implementation(libs.androidx.camera.lifecycle)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.androidx.material3)

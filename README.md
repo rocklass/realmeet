@@ -37,7 +37,12 @@ The following technologies are used to build the RealMeet app:
 The app is designed using **Clean Architecture** with **modularization**. It consists of the following components:
 
 - **Core modules**: Shared utilities, network, and data handling code.
-- **Feature modules**: Separate modules for each feature, ensuring scalability and maintainability (one module for each layer of the clean architecture, domain module are pure Kotlin modules without dependency to the Android framework).
+- **Feature modules**: Separate modules for each feature, ensuring scalability and maintainability, one module for each layer of the clean architecture:
+1. **Domain Layer**: Contains business logic and use cases (pure Kotlin modules without dependency to the Android framework).
+2. **Data Layer**: Handles data operations, such as network calls.
+3. **UI Layer**: Responsible for the user interface, built using Jetpack Compose.
+
+Additionally, I’ve implemented a small **design system** to create reusable UI components. This design system ensures consistency across the app’s interface and allows easy scaling of UI elements while maintaining uniformity.
 
 ## What is missing for the MVP?
 

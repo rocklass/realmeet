@@ -40,6 +40,7 @@ android {
 
 dependencies {
     implementation(project(":core:navigation"))
+    implementation(project(":core:notification"))
     implementation(project(":features:capture:capture-data"))
     implementation(project(":features:capture:capture-domain"))
     implementation(project(":features:capture:capture-ui"))

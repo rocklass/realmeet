@@ -12,8 +12,11 @@ import com.rocklass.realmeet.features.home.ui.HomeScreen
 import com.rocklass.realmeet.features.share.ui.ShareScreen
 
 @Composable
-fun RealMeetNavGraph(navController: NavHostController) {
-    NavHost(navController = navController, startDestination = HOME) {
+fun RealMeetNavGraph(
+    navController: NavHostController,
+    startDestination: String = HOME,
+) {
+    NavHost(navController = navController, startDestination = startDestination) {
         composable(HOME) {
             HomeScreen()
         }

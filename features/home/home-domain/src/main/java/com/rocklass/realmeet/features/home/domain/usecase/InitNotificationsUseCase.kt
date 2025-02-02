@@ -8,7 +8,7 @@ class InitNotificationsUseCase @Inject constructor(
 ): suspend () -> Result<Unit> {
     override suspend fun invoke(): Result<Unit> {
         return try {
-            Result.success(homeRepository.sendNotification())
+            Result.success(homeRepository.initNotifications())
         } catch (e: Exception) {
             Result.failure(e)
         }

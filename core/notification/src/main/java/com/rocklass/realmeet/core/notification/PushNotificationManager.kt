@@ -13,7 +13,6 @@ class PushNotificationManager @Inject constructor(
     private val context: Context,
 ) {
     fun createNotificationChannel() {
-        println("### Creating notification channel")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channelId = "realmeet"
             val channelName = "RealMeet"
@@ -24,8 +23,6 @@ class PushNotificationManager @Inject constructor(
 
             val notificationManager = context.getSystemService(NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.createNotificationChannel(notificationChannel)
-
-            println("### Notification channel created")
         }
     }
 

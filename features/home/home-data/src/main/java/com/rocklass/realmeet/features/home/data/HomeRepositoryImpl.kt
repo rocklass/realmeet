@@ -13,8 +13,8 @@ class HomeRepositoryImpl @Inject constructor(
 
     override suspend fun sendNotification() {
         pushNotificationManager.sendNotification(
-            title = "Hello",
-            message = "This is a notification",
+            title = "RealMeet",
+            message = "Some people are nearby. Ready for a RealMeet?",
         )
     }
 

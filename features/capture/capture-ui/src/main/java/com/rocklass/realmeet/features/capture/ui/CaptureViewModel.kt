@@ -1,26 +1,17 @@
 package com.rocklass.realmeet.features.capture.ui
 
 import android.content.Context
-import android.util.Log
-import androidx.camera.core.CameraSelector
-import androidx.camera.core.ImageCapture
-import androidx.camera.core.ImageCaptureException
-import androidx.camera.core.ImageProxy
-import androidx.camera.core.Preview
 import androidx.camera.core.SurfaceRequest
-import androidx.camera.lifecycle.ProcessCameraProvider
-import androidx.camera.lifecycle.awaitInstance
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.rocklass.berealtest.core.designsystem.component.cta.CtaUIModel
+import com.rocklass.realmeet.core.camera.CameraManager
 import com.rocklass.realmeet.features.capture.domain.usecase.SendCaptureUseCase
 import com.rocklass.realmeet.features.capture.ui.CaptureViewModel.CaptureState.Success.withLoading
 import com.rocklass.realmeet.features.capture.ui.mapper.ByteArrayToCaptureMapper
 import com.rocklass.realmeet.features.capture.ui.model.CaptureUIModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.awaitCancellation
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
@@ -31,6 +22,7 @@ import javax.inject.Inject
 class CaptureViewModel @Inject constructor(
     private val sendCaptureUseCase: SendCaptureUseCase,
     private val byteArrayToCaptureMapper: ByteArrayToCaptureMapper,
+    private val cameraManager: CameraManager,
 ) : ViewModel() {
     private val _state = MutableStateFlow<CaptureState>(CaptureState.Initial)
     val state: StateFlow<CaptureState> = _state
@@ -38,51 +30,24 @@ class CaptureViewModel @Inject constructor(
     private val _surfaceRequest = MutableStateFlow<SurfaceRequest?>(null)
     val surfaceRequest: StateFlow<SurfaceRequest?> = _surfaceRequest
 
-    private val cameraPreviewUseCase = Preview.Builder().build().apply {
-        setSurfaceProvider { newSurfaceRequest ->
-            _surfaceRequest.update { newSurfaceRequest }
+    fun bindToCamera(context: Context, lifecycleOwner: LifecycleOwner) {
+        viewModelScope.launch {
+            val surfaceRequest = cameraManager.initializeCamera(context, lifecycleOwner)
+            _surfaceRequest.update { surfaceRequest }
+            _state.update { CaptureState.DisplayCapturePreview() }
         }
     }
 
-    private val imageCaptureUseCase = ImageCapture.Builder().build()
-
-    suspend fun bindToCamera(appContext: Context, lifecycleOwner: LifecycleOwner) {
-        val processCameraProvider = ProcessCameraProvider.awaitInstance(appContext)
-        processCameraProvider.bindToLifecycle(
-            lifecycleOwner = lifecycleOwner,
-            cameraSelector = CameraSelector.Builder().build(),
-            cameraPreviewUseCase,
-            imageCaptureUseCase,
-        )
-
-        try { awaitCancellation() } finally { processCameraProvider.unbindAll() }
-    }
-
-    fun takePicture(appContext: Context) {
-        val currentState = _state.value 
+    fun takePicture(context: Context) {
+        val currentState = _state.value
         if (currentState is CaptureState.DisplayCapturePreview) {
             _state.update { currentState.withLoading() }
-            val callback = object : ImageCapture.OnImageCapturedCallback() {
-                override fun onCaptureSuccess(image: ImageProxy) {
-                    val buffer = image.planes[0].buffer
-                    val byteArray = ByteArray(buffer.remaining())
-                    buffer.get(byteArray)
-                    image.close()
-                    sendCapture(byteArray)
+            cameraManager.takePicture(
+                context = context,
+                onSuccess = { byteArray -> sendCapture(byteArray) },
+                onError = { exception ->
+                    _state.update { CaptureState.Error(exception.message ?: "Unknown error") }
                 }
-
-                override fun onError(exception: ImageCaptureException) {
-                    Log.e(
-                        CaptureViewModel::class.simpleName,
-                        "Photo capture failed: ${exception.message}",
-                        exception
-                    )
-                    _state.update { CaptureState.Error(exception.message) }
-                }
-            }
-            imageCaptureUseCase.takePicture(
-                ContextCompat.getMainExecutor(appContext),
-                callback,
             )
         }
     }

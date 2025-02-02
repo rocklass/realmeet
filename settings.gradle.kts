@@ -21,6 +21,7 @@ dependencyResolutionManagement {
 
 rootProject.name = "RealMeet"
 include(":app")
+include(":core:camera")
 include(":core:design-system")
 include(":core:network")
 include(":features:capture:capture-data")

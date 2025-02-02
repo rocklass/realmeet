@@ -1,6 +1,5 @@
 package com.rocklass.realmeet.features.capture.ui
 
-import android.util.Log
 import androidx.camera.compose.CameraXViewfinder
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize

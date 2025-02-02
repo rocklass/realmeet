@@ -1,13 +1,12 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
 }
 
 android {
-    namespace = "com.rocklass.realmeet.features.capture.ui"
+    namespace = "com.rocklass.realmeet.core.camera"
     compileSdk = 35
 
     defaultConfig {
@@ -33,27 +32,17 @@ android {
     kotlinOptions {
         jvmTarget = "21"
     }
-    buildFeatures {
-        compose = true
-    }
 }
 
 dependencies {
-    implementation(project(":core:camera"))
-    implementation(project(":core:design-system"))
-    implementation(project(":features:capture:capture-domain"))
-    implementation(libs.accompanist.permissions)
-    implementation(libs.androidx.camera.compose)
-    implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.hilt.navigation.compose)
-    implementation(libs.androidx.material3)
-    implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.hilt)
     ksp(libs.hilt.compiler)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.camera)
+    implementation(libs.androidx.camera.camera2)
+    implementation(libs.androidx.camera.lifecycle)
     testImplementation(libs.junit)
-    testImplementation(libs.kotlin.coroutines.test)
-    testImplementation(libs.mockito.kotlin)
-    testImplementation(libs.turbine)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 }

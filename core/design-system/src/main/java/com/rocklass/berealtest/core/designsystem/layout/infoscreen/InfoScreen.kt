@@ -1,4 +1,4 @@
-package com.rocklass.berealtest.core.designsystem.layout.screenwithcta
+package com.rocklass.berealtest.core.designsystem.layout.infoscreen
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -16,35 +16,41 @@ import com.rocklass.berealtest.core.designsystem.component.title.Title
 import com.rocklass.berealtest.core.designsystem.component.cta.CtaUIModel
 import com.rocklass.berealtest.core.designsystem.component.description.DescriptionUIModel
 import com.rocklass.berealtest.core.designsystem.component.title.TitleUIModel
+import com.rocklass.berealtest.core.designsystem.layout.screenwithcta.ScreenWithCTA
 
 @Composable
-fun ScreenWithCallToActionLayout(
-    uiModel: ScreenWithCTAUIModel,
+fun InfoScreen(
+    uiModel: InfoScreenUIModel,
     onCtaClick: () -> Unit,
 ) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .wrapContentSize(align = Alignment.Center),
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-        Title(uiModel = uiModel.title)
-        Spacer(modifier = Modifier.height(16.dp))
-        uiModel.description?.let {
-            Description(uiModel = it)
+    ScreenWithCTA(
+        content = {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .wrapContentSize(align = Alignment.Center),
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                Title(uiModel = uiModel.title)
+                Spacer(modifier = Modifier.height(16.dp))
+                uiModel.description?.let {
+                    Description(uiModel = it)
+                }
+            }
+        },
+        cta = {
+            Cta(uiModel = uiModel.cta) {
+                onCtaClick()
+            }
         }
-        Spacer(modifier = Modifier.height(16.dp))
-        Cta(uiModel = uiModel.cta) {
-            onCtaClick()
-        }
-    }
+    )
 }
 
 @Preview(showBackground = true)
 @Composable
-private fun ScreenWithCallToActionLayoutPreview() {
-    ScreenWithCallToActionLayout(
-        uiModel = ScreenWithCTAUIModel(
+private fun InfoScreenPreview() {
+    InfoScreen(
+        uiModel = InfoScreenUIModel(
             title = TitleUIModel(text = "Title"),
             description = DescriptionUIModel(text = "Description"),
             cta = CtaUIModel.Default(text = "CTA"),

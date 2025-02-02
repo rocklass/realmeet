@@ -25,8 +25,8 @@ import com.rocklass.berealtest.core.designsystem.component.description.Descripti
 import com.rocklass.berealtest.core.designsystem.component.title.TitleUIModel
 import com.rocklass.berealtest.core.designsystem.layout.fullscreenloader.FullScreenLoader
 import com.rocklass.berealtest.core.designsystem.layout.fullscreenloader.FullScreenLoaderUIModel
-import com.rocklass.berealtest.core.designsystem.layout.screenwithcta.ScreenWithCTAUIModel
-import com.rocklass.berealtest.core.designsystem.layout.screenwithcta.ScreenWithCallToActionLayout
+import com.rocklass.berealtest.core.designsystem.layout.infoscreen.InfoScreenUIModel
+import com.rocklass.berealtest.core.designsystem.layout.infoscreen.InfoScreen
 import com.rocklass.realmeet.core.navigation.Routes.SHARE
 import com.rocklass.realmeet.features.capture.ui.CaptureViewModel.CaptureState.*
 import com.rocklass.realmeet.features.capture.ui.model.CaptureUIModel
@@ -89,8 +89,8 @@ private fun CameraPermission(
 
 @Composable
 private fun CameraPermissionRequired(onRequestPermission: () -> Unit) {
-    ScreenWithCallToActionLayout(
-        uiModel = ScreenWithCTAUIModel(
+    InfoScreen(
+        uiModel = InfoScreenUIModel(
             title = TitleUIModel(text = stringResource(R.string.camera_permission_required_title)),
             description = DescriptionUIModel(text = stringResource(R.string.camera_permission_required_description)),
             cta = CtaUIModel.Default(text = stringResource(R.string.camera_permission_required_button)),
@@ -150,8 +150,8 @@ fun ErrorScreen(
     errorMessage: String?,
     onRetry: () -> Unit,
 ) {
-    ScreenWithCallToActionLayout(
-        uiModel = ScreenWithCTAUIModel(
+    InfoScreen(
+        uiModel = InfoScreenUIModel(
             title = TitleUIModel(text = stringResource(R.string.camera_capture_error)),
             description = errorMessage?.let { DescriptionUIModel(text = errorMessage) },
             cta = CtaUIModel.Default(text = stringResource(R.string.camera_capture_retry)),

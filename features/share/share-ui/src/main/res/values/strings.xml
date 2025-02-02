@@ -1,2 +1,4 @@
 <resources>
+    <string name="share_loading_error">Oops!</string>"
+    <string name="share_loading_retry">Retry</string>
 </resources>

@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
 }
@@ -39,6 +40,7 @@ dependencies {
     implementation(project(":features:share:share-domain"))
     implementation(libs.hilt)
     ksp(libs.hilt.compiler)
+    implementation(libs.kotlin.serialization.json)
     implementation(libs.retrofit)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

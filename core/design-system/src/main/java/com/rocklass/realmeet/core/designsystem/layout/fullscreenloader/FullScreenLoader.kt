@@ -1,4 +1,4 @@
-package com.rocklass.berealtest.core.designsystem.layout.fullscreenloader
+package com.rocklass.realmeet.core.designsystem.layout.fullscreenloader
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column

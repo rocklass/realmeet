@@ -1,4 +1,4 @@
-package com.rocklass.berealtest.core.designsystem.layout.infoscreen
+package com.rocklass.realmeet.core.designsystem.layout.infoscreen
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -10,13 +10,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.rocklass.berealtest.core.designsystem.component.cta.Cta
-import com.rocklass.berealtest.core.designsystem.component.description.Description
-import com.rocklass.berealtest.core.designsystem.component.title.Title
-import com.rocklass.berealtest.core.designsystem.component.cta.CtaUIModel
-import com.rocklass.berealtest.core.designsystem.component.description.DescriptionUIModel
-import com.rocklass.berealtest.core.designsystem.component.title.TitleUIModel
-import com.rocklass.berealtest.core.designsystem.layout.screenwithcta.ScreenWithCTA
+import com.rocklass.realmeet.core.designsystem.component.cta.Cta
+import com.rocklass.realmeet.core.designsystem.component.description.Description
+import com.rocklass.realmeet.core.designsystem.component.title.Title
+import com.rocklass.realmeet.core.designsystem.component.cta.CtaUIModel
+import com.rocklass.realmeet.core.designsystem.component.description.DescriptionUIModel
+import com.rocklass.realmeet.core.designsystem.component.title.TitleUIModel
+import com.rocklass.realmeet.core.designsystem.layout.screenwithcta.ScreenWithCTA
 
 @Composable
 fun InfoScreen(

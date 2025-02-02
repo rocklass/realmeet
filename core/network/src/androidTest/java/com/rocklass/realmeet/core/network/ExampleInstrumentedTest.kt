@@ -17,6 +17,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        Assert.assertEquals("com.rocklass.berealtest.core.data.test", appContext.packageName)
+        Assert.assertEquals("com.rocklass.realmeet.core.network.test", appContext.packageName)
     }
 }

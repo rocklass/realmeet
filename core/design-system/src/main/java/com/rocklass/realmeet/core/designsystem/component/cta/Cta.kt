@@ -1,4 +1,4 @@
-package com.rocklass.berealtest.core.designsystem.component.cta
+package com.rocklass.realmeet.core.designsystem.component.cta
 
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator

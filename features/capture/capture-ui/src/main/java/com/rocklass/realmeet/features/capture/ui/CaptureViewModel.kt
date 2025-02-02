@@ -5,7 +5,7 @@ import androidx.camera.core.SurfaceRequest
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.rocklass.berealtest.core.designsystem.component.cta.CtaUIModel
+import com.rocklass.realmeet.core.designsystem.component.cta.CtaUIModel
 import com.rocklass.realmeet.core.camera.CameraManager
 import com.rocklass.realmeet.features.capture.domain.usecase.SendCaptureUseCase
 import com.rocklass.realmeet.features.capture.ui.CaptureViewModel.CaptureState.Success.withLoading

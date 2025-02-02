@@ -1,24 +1,22 @@
-package com.rocklass.berealtest.core.designsystem.component.description
+package com.rocklass.realmeet.core.designsystem.component.title
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun Description(
-    uiModel: DescriptionUIModel,
+fun Title(
+    uiModel: TitleUIModel,
     modifier: Modifier = Modifier.padding(horizontal = 8.dp),
-    maxLines: Int = Int.MAX_VALUE,
+    maxLines: Int = 3,
 ) {
     Text(
         text = uiModel.text,
-        textAlign = TextAlign.Justify,
-        style = MaterialTheme.typography.bodyMedium,
+        style = MaterialTheme.typography.titleLarge,
         modifier = modifier,
         maxLines = maxLines,
     )
@@ -26,10 +24,10 @@ fun Description(
 
 @Preview(showBackground = true)
 @Composable
-private fun DescriptionPreview() {
-    Description(
-        uiModel = DescriptionUIModel(
-            text = "This is a description!",
+private fun TitlePreview() {
+    Title(
+        uiModel = TitleUIModel(
+            text = "This is a title!",
         ),
     )
 }

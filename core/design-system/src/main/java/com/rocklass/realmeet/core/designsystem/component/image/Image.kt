@@ -1,4 +1,4 @@
-package com.rocklass.berealtest.core.designsystem.component.image
+package com.rocklass.realmeet.core.designsystem.component.image
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier

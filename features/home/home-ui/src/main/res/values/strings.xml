@@ -1,0 +1,8 @@
+<resources>
+    <string name="home_title">You\'re ready for a RealMeet!</string>
+    <string name="home_description">You\'ll be notified when someone nearby is available for a RealMeet</string>
+    <string name="home_button">Start a RealMeet!</string>
+    <string name="home_permission_required_title">Welcome in RealMeet!</string>
+    <string name="home_permission_required_description">Ready to meet someone new nearby? Allow notifications to get notified when someone is nearby and available for a RealMeet!</string>
+    <string name="home_permission_required_button">Grant permission and go!</string>
+</resources>

@@ -8,7 +8,7 @@ class ShareInfoResponseToDomainMapper @Inject constructor() : (ShareInfoResponse
     override fun invoke(response: ShareInfoResponse): ShareInfo {
         return ShareInfo(
             imageUrl = response.imageUrl,
-            shareUrl = response.shareUrl,
+            shareText = response.shareText,
         )
     }
 }

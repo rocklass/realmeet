@@ -28,7 +28,6 @@ class ShareViewModel @Inject constructor(
                     _state.update { ShareState.DisplayShare(shareInfoToUIModelMapper(shareInfo)) }
                 },
                 onFailure = { exception ->
-                    Log.e("ShareViewModel", "Error fetching share info", exception)
                     _state.update { ShareState.Error(exception.message) }
                 }
             )
@@ -36,13 +35,17 @@ class ShareViewModel @Inject constructor(
     }
 
     fun share() {
-        //TODO("Not yet implemented")
+        val currentState = _state.value
+        if (currentState is ShareState.DisplayShare) {
+            _state.update { ShareState.Share(currentState.uiModel) }
+        }
     }
 
 
     sealed class ShareState {
         data object Initial : ShareState()
         data class DisplayShare(val uiModel: ShareUIModel) : ShareState()
+        data class Share(val uiModel: ShareUIModel) : ShareState()
         data class Error(val message: String?) : ShareState()
     }
 }

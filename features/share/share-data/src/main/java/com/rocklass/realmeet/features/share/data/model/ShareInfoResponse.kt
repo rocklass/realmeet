@@ -5,5 +5,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class ShareInfoResponse(
     val imageUrl: String,
-    val shareUrl: String,
+    val shareText: String,
 )

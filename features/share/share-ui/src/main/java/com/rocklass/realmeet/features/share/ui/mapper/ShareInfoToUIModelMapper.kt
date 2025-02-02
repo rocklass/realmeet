@@ -8,7 +8,7 @@ class ShareInfoToUIModelMapper @Inject constructor() : (ShareInfo) -> ShareUIMod
     override fun invoke(shareInfo: ShareInfo): ShareUIModel {
         return ShareUIModel(
             imageUrl = shareInfo.imageUrl,
-            shareUrl = shareInfo.shareUrl,
+            shareText = shareInfo.shareText,
         )
     }
 }

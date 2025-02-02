@@ -1,27 +1,33 @@
-package com.rocklass.berealtest.core.designsystem.component
+package com.rocklass.berealtest.core.designsystem.component.title
 
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 
 @Composable
 fun Title(
-    text: String,
-    modifier: Modifier = Modifier,
+    uiModel: TitleUIModel,
+    modifier: Modifier = Modifier.padding(horizontal = 8.dp),
     maxLines: Int = 3,
 ) {
     Text(
-        text = text,
+        text = uiModel.text,
         style = MaterialTheme.typography.titleLarge,
         modifier = modifier,
         maxLines = maxLines,
     )
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 private fun TitlePreview() {
-    Title(text = "This is a title!")
+    Title(
+        uiModel = TitleUIModel(
+            text = "This is a title!",
+        ),
+    )
 }

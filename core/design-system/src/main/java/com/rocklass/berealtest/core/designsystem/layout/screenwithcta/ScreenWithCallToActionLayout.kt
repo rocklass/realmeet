@@ -1,4 +1,4 @@
-package com.rocklass.berealtest.core.designsystem.layout
+package com.rocklass.berealtest.core.designsystem.layout.screenwithcta
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -10,15 +10,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.rocklass.berealtest.core.designsystem.component.Cta
-import com.rocklass.berealtest.core.designsystem.component.Description
-import com.rocklass.berealtest.core.designsystem.component.Title
+import com.rocklass.berealtest.core.designsystem.component.cta.Cta
+import com.rocklass.berealtest.core.designsystem.component.description.Description
+import com.rocklass.berealtest.core.designsystem.component.title.Title
+import com.rocklass.berealtest.core.designsystem.component.cta.CtaUIModel
+import com.rocklass.berealtest.core.designsystem.component.description.DescriptionUIModel
+import com.rocklass.berealtest.core.designsystem.component.title.TitleUIModel
 
 @Composable
 fun ScreenWithCallToActionLayout(
-    title: String,
-    description: String? = null,
-    cta: String,
+    uiModel: ScreenWithCTAUIModel,
     onCtaClick: () -> Unit,
 ) {
     Column(
@@ -27,25 +28,27 @@ fun ScreenWithCallToActionLayout(
             .wrapContentSize(align = Alignment.Center),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Title(text = title)
+        Title(uiModel = uiModel.title)
         Spacer(modifier = Modifier.height(16.dp))
-        description?.let {
-            Description(text = it)
+        uiModel.description?.let {
+            Description(uiModel = it)
         }
         Spacer(modifier = Modifier.height(16.dp))
-        Cta(text = cta) {
+        Cta(uiModel = uiModel.cta) {
             onCtaClick()
         }
     }
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 private fun ScreenWithCallToActionLayoutPreview() {
     ScreenWithCallToActionLayout(
-        title = "Title",
-        description = "Description",
-        cta = "CTA",
+        uiModel = ScreenWithCTAUIModel(
+            title = TitleUIModel(text = "Title"),
+            description = DescriptionUIModel(text = "Description"),
+            cta = CtaUIModel.Default(text = "CTA"),
+        ),
         onCtaClick = {},
     )
 }

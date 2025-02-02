@@ -3,4 +3,7 @@
     <string name="camera_permission_required_description">We need your camera to snap those epic RealMeet moments. Grant permission, and let\'s make some memories!</string>
     <string name="camera_permission_required_button">Grant permission and go!</string>
     <string name="camera_capture_button">Shot!</string>
+    <string name="camera_capture_error">Oops!</string>
+    <string name="camera_capture_retry">Retry</string>
+    <string name="camera_capture_send_loading">Sending the RealMeet capture to the group…</string>
 </resources>

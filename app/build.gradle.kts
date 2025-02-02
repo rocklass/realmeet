@@ -43,6 +43,8 @@ dependencies {
     implementation(project(":features:capture:capture-data"))
     implementation(project(":features:capture:capture-domain"))
     implementation(project(":features:capture:capture-ui"))
+    implementation(project(":features:home:home-data"))
+    implementation(project(":features:home:home-domain"))
     implementation(project(":features:home:home-ui"))
     implementation(project(":features:share:share-data"))
     implementation(project(":features:share:share-domain"))

@@ -8,7 +8,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavHostController
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionState
 import com.google.accompanist.permissions.isGranted
@@ -18,15 +17,14 @@ import com.rocklass.realmeet.core.designsystem.component.description.Description
 import com.rocklass.realmeet.core.designsystem.component.title.TitleUIModel
 import com.rocklass.realmeet.core.designsystem.layout.infoscreen.InfoScreen
 import com.rocklass.realmeet.core.designsystem.layout.infoscreen.InfoScreenUIModel
-import com.rocklass.realmeet.core.navigation.Routes
 import com.rocklass.realmeet.features.home.ui.HomeViewModel.HomeState.DisplayHome
+import com.rocklass.realmeet.features.home.ui.HomeViewModel.HomeState.Error
 import com.rocklass.realmeet.features.home.ui.HomeViewModel.HomeState.NotificationPermissionRequired
 
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel(),
-    navController: NavHostController,
 ) {
     val notificationPermissionState: PermissionState? = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
         rememberPermissionState(android.Manifest.permission.POST_NOTIFICATIONS)
@@ -52,14 +50,16 @@ fun HomeScreen(
                     description = DescriptionUIModel(text = stringResource(R.string.home_description)),
                     cta = CtaUIModel.Default(text = stringResource(R.string.home_button)),
                 ),
-                onCtaClick = {
-                    navController.navigate(Routes.CAPTURE)
-                },
+                onCtaClick = viewModel::sendNotification,
             )
         }
         is NotificationPermissionRequired -> NotificationPermissionRequired {
             notificationPermissionState?.launchPermissionRequest()
         }
+        is Error -> ErrorScreen(
+            message = (homeState as Error).message,
+            onRetry = viewModel::sendNotification,
+        )
     }
 }
 
@@ -92,6 +92,21 @@ private fun NotificationPermissionRequired(onRequestPermission: () -> Unit) {
     ){
         onRequestPermission()
     }
+}
+
+@Composable
+private fun ErrorScreen(
+    message: String?,
+    onRetry: () -> Unit,
+) {
+    InfoScreen(
+        uiModel = InfoScreenUIModel(
+            title = TitleUIModel(text = stringResource(R.string.home_error)),
+            description = message?.let { DescriptionUIModel(text = message) },
+            cta = CtaUIModel.Default(text = stringResource(R.string.home_retry)),
+        ),
+        onCtaClick = onRetry,
+    )
 }
 
 @Preview(showBackground = true)

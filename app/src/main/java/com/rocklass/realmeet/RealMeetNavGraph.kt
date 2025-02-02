@@ -15,7 +15,7 @@ import com.rocklass.realmeet.features.share.ui.ShareScreen
 fun RealMeetNavGraph(navController: NavHostController) {
     NavHost(navController = navController, startDestination = HOME) {
         composable(HOME) {
-            HomeScreen(navController = navController)
+            HomeScreen()
         }
         composable(CAPTURE) {
             CaptureScreen(navController = navController)
